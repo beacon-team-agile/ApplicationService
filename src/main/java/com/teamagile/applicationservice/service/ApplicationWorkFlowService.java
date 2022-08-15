@@ -4,8 +4,7 @@ import com.teamagile.applicationservice.dao.ApplicationWorkFlowDao;
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
