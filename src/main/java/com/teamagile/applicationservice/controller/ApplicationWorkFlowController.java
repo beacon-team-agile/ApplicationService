@@ -2,8 +2,8 @@ package com.teamagile.applicationservice.controller;
 
 
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
-import com.teamagile.applicationservice.domain.response.AddApplicationWorkFlowResponse;
-import com.teamagile.applicationservice.domain.response.SingleApplicationWorkFlowResponse;
+import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.AddApplicationWorkFlowResponse;
+import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.SingleApplicationWorkFlowResponse;
 import com.teamagile.applicationservice.domain.response.common.ResponseStatus;
 import com.teamagile.applicationservice.service.ApplicationWorkFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class ApplicationWorkFlowController {
         this.applicationWorkFlowService = applicationWorkFlowService;
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public AddApplicationWorkFlowResponse addApplicationWorkFlow(@Valid @RequestBody ApplicationWorkFlow applicationWorkFlow) {
         ApplicationWorkFlow newAppWF = ApplicationWorkFlow.builder()
                 .employee_id(applicationWorkFlow.getEmployee_id())
@@ -44,7 +44,7 @@ public class ApplicationWorkFlowController {
                 .build();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public SingleApplicationWorkFlowResponse getApplicationWorkFlowById(@PathVariable Integer id) {
         ApplicationWorkFlow applicationWorkFlow = applicationWorkFlowService.getApplicationWorkFlowById(id);
 

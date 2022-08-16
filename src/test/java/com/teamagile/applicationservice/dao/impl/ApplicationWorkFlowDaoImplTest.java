@@ -32,14 +32,14 @@ public class ApplicationWorkFlowDaoImplTest {
                 .build();
     }
 
-//    @Transactional
-//    @Test
-//    public void testGetApplicationWorkFlowById_found() {
-//        Integer id = applicationWorkFlowDao.addApplicationWorkFlow(mockApplicationWorkFlow);
-//        assertNotNull(id);
-//        assertEquals(mockApplicationWorkFlow,applicationWorkFlowDao.getApplicationWorkFlowById(id));
-//        mockApplicationWorkFlow.setId(null);
-//    }
+    @Transactional
+    @Test
+    public void testGetApplicationWorkFlowById_found() {
+        Integer id = applicationWorkFlowDao.addApplicationWorkFlow(mockApplicationWorkFlow);
+        assertNotNull(id);
+        assertEquals(mockApplicationWorkFlow,applicationWorkFlowDao.getApplicationWorkFlowById(id));
+        mockApplicationWorkFlow.setId(null);
+    }
 
     @Transactional
     @Test

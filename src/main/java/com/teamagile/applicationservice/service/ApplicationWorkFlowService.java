@@ -2,9 +2,12 @@ package com.teamagile.applicationservice.service;
 
 import com.teamagile.applicationservice.dao.ApplicationWorkFlowDao;
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
+import com.teamagile.applicationservice.exceptions.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,7 +24,8 @@ public class ApplicationWorkFlowService {
     }
 
     public ApplicationWorkFlow getApplicationWorkFlowById(int id) {
-        return applicationWorkFlowDao.getApplicationWorkFlowById(id);
+        return Optional.ofNullable(applicationWorkFlowDao.getApplicationWorkFlowById(id))
+                .orElseThrow(() -> new DataNotFoundException("Application Work Flow not found"));
     }
 
 }

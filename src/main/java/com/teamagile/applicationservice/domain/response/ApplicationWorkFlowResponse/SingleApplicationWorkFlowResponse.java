@@ -1,4 +1,4 @@
-package com.teamagile.applicationservice.domain.response;
+package com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse;
 
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
 import com.teamagile.applicationservice.domain.response.common.ResponseStatus;
