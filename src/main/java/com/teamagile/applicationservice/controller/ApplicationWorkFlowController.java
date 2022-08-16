@@ -70,4 +70,64 @@ public class ApplicationWorkFlowController {
                 .applicationWorkFlow(applicationWorkFlow)
                 .build();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public SingleApplicationWorkFlowResponse deleteApplicationWorkFlowById(@PathVariable Integer id) {
+        ApplicationWorkFlow applicationWorkFlow = applicationWorkFlowService.getApplicationWorkFlowById(id);
+
+        if (applicationWorkFlow==null) {
+            return SingleApplicationWorkFlowResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .is_success(false)
+                                    .message("Didn't find ApplicationWorkFlow")
+                                    .build()
+                    )
+                    .applicationWorkFlow(null)
+                    .build();
+        }
+        applicationWorkFlowService.deleteApplicationWorkFlowById(id);
+
+        return SingleApplicationWorkFlowResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Deleted ApplicationWorkFlow")
+                                .build()
+                )
+                .applicationWorkFlow(applicationWorkFlow)
+                .build();
+    }
+
+    @PatchMapping("/update/{id}")
+    public SingleApplicationWorkFlowResponse deleteApplicationWorkFlowById(@PathVariable Integer id,
+                                                                           @RequestBody ApplicationWorkFlow applicationWorkFlow) {
+        ApplicationWorkFlow found_applicationWorkFlow = applicationWorkFlowService.getApplicationWorkFlowById(id);
+
+        if (found_applicationWorkFlow == null) {
+            return SingleApplicationWorkFlowResponse.builder()
+                    .responseStatus(
+                            ResponseStatus.builder()
+                                    .is_success(false)
+                                    .message("Didn't find ApplicationWorkFlow")
+                                    .build()
+                    )
+                    .applicationWorkFlow(null)
+                    .build();
+        }
+
+        ApplicationWorkFlow updated_applicationWorkFlow = applicationWorkFlowService.updateApplicationWorkFlowById(id,applicationWorkFlow);
+
+        return SingleApplicationWorkFlowResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Updated ApplicationWorkFlow")
+                                .build()
+                )
+                .applicationWorkFlow(updated_applicationWorkFlow)
+                .build();
+
+    }
+
 }

@@ -28,4 +28,11 @@ public class ApplicationWorkFlowService {
                 .orElseThrow(() -> new DataNotFoundException("Application Work Flow not found"));
     }
 
+    public void deleteApplicationWorkFlowById(int id) {
+        applicationWorkFlowDao.deleteApplicationWorkFlowById(id);
+    }
+
+    public ApplicationWorkFlow updateApplicationWorkFlowById(int id, ApplicationWorkFlow applicationWorkFlow) {
+        return applicationWorkFlowDao.updateApplicationWorkFlowById(id,applicationWorkFlow);
+    }
 }

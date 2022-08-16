@@ -6,4 +6,8 @@ public interface ApplicationWorkFlowDao {
     Integer addApplicationWorkFlow(ApplicationWorkFlow applicationWorkFlow);
 
     ApplicationWorkFlow getApplicationWorkFlowById(Integer id);
+
+    ApplicationWorkFlow updateApplicationWorkFlowById(Integer id,ApplicationWorkFlow applicationWorkFlow);
+
+    void deleteApplicationWorkFlowById(Integer id);
 }
