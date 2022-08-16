@@ -30,6 +30,10 @@ public class ApplicationWorkFlowDaoImpl extends AbstractHibernateDAO<Application
         Session session = getCurrentSession();
         ApplicationWorkFlow old_applicationWorkFlow = findById(id);
 
+        if (old_applicationWorkFlow==null) {
+            return null;
+        }
+
         old_applicationWorkFlow.setEmployee_id(applicationWorkFlow.getEmployee_id());
         old_applicationWorkFlow.setCreate_date(applicationWorkFlow.getCreate_date());
         old_applicationWorkFlow.setLast_modification_date(applicationWorkFlow.getLast_modification_date());

@@ -29,10 +29,12 @@ public class ApplicationWorkFlowService {
     }
 
     public void deleteApplicationWorkFlowById(int id) {
+        this.getApplicationWorkFlowById(id);
         applicationWorkFlowDao.deleteApplicationWorkFlowById(id);
     }
 
     public ApplicationWorkFlow updateApplicationWorkFlowById(int id, ApplicationWorkFlow applicationWorkFlow) {
+        this.getApplicationWorkFlowById(id);
         return applicationWorkFlowDao.updateApplicationWorkFlowById(id,applicationWorkFlow);
     }
 }

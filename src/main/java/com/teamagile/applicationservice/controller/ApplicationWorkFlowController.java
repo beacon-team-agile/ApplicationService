@@ -75,17 +75,6 @@ public class ApplicationWorkFlowController {
     public SingleApplicationWorkFlowResponse deleteApplicationWorkFlowById(@PathVariable Integer id) {
         ApplicationWorkFlow applicationWorkFlow = applicationWorkFlowService.getApplicationWorkFlowById(id);
 
-        if (applicationWorkFlow==null) {
-            return SingleApplicationWorkFlowResponse.builder()
-                    .responseStatus(
-                            ResponseStatus.builder()
-                                    .is_success(false)
-                                    .message("Didn't find ApplicationWorkFlow")
-                                    .build()
-                    )
-                    .applicationWorkFlow(null)
-                    .build();
-        }
         applicationWorkFlowService.deleteApplicationWorkFlowById(id);
 
         return SingleApplicationWorkFlowResponse.builder()
@@ -102,19 +91,6 @@ public class ApplicationWorkFlowController {
     @PatchMapping("/update/{id}")
     public SingleApplicationWorkFlowResponse deleteApplicationWorkFlowById(@PathVariable Integer id,
                                                                            @RequestBody ApplicationWorkFlow applicationWorkFlow) {
-        ApplicationWorkFlow found_applicationWorkFlow = applicationWorkFlowService.getApplicationWorkFlowById(id);
-
-        if (found_applicationWorkFlow == null) {
-            return SingleApplicationWorkFlowResponse.builder()
-                    .responseStatus(
-                            ResponseStatus.builder()
-                                    .is_success(false)
-                                    .message("Didn't find ApplicationWorkFlow")
-                                    .build()
-                    )
-                    .applicationWorkFlow(null)
-                    .build();
-        }
 
         ApplicationWorkFlow updated_applicationWorkFlow = applicationWorkFlowService.updateApplicationWorkFlowById(id,applicationWorkFlow);
 
