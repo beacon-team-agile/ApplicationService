@@ -2,15 +2,22 @@ package com.teamagile.applicationservice.controller;
 
 
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
+import com.teamagile.applicationservice.domain.request.EmailApplicationStatusRequest;
 import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.AddApplicationWorkFlowResponse;
 import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.MultipleApplicationWorkFlowResponse;
 import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.SingleApplicationWorkFlowResponse;
 import com.teamagile.applicationservice.domain.response.common.ResponseStatus;
 import com.teamagile.applicationservice.service.ApplicationWorkFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import javax.ws.rs.PathParam;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -118,6 +125,35 @@ public class ApplicationWorkFlowController {
                                 .build()
                 )
                 .applicationWorkFlow(updated_applicationWorkFlow)
+                .build();
+
+    }
+
+    @PostMapping("/email_result/{id}")
+    public SingleApplicationWorkFlowResponse emailApplicationResultById(@PathVariable Integer id,
+                                                     @RequestBody EmailApplicationStatusRequest emailApplicationStatusRequest) {
+        String emailResultURI = "http://localhost:8091/email-service/email/send_reg_status";
+
+
+        RestTemplate restTemplate = new RestTemplate();
+        RequestEntity<EmailApplicationStatusRequest> requestEntity= RequestEntity
+                .post(emailResultURI, "")
+                .accept(MediaType.APPLICATION_JSON)
+                .body(emailApplicationStatusRequest);
+
+        ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
+
+        applicationWorkFlowService.update_ApplicationWorkFlow_Status_ById(id, emailApplicationStatusRequest.getApproved());
+        ApplicationWorkFlow applicationWorkFlow = applicationWorkFlowService.update_ApplicationWorkFlow_lastModificationTime_ById(id);
+
+        return SingleApplicationWorkFlowResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Updated ApplicationWorkFlow")
+                                .build()
+                )
+                .applicationWorkFlow(applicationWorkFlow)
                 .build();
 
     }

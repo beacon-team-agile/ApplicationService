@@ -42,4 +42,14 @@ public class ApplicationWorkFlowService {
         this.getApplicationWorkFlowById(id);
         return applicationWorkFlowDao.updateApplicationWorkFlowById(id,applicationWorkFlow);
     }
+
+    public ApplicationWorkFlow update_ApplicationWorkFlow_lastModificationTime_ById(Integer id){
+        this.getApplicationWorkFlowById(id);
+        return applicationWorkFlowDao.update_ApplicationWorkFlow_lastModificationTime_ById(id);
+    }
+
+    public ApplicationWorkFlow update_ApplicationWorkFlow_Status_ById(Integer id, boolean status){
+        this.getApplicationWorkFlowById(id);
+        return applicationWorkFlowDao.update_ApplicationWorkFlow_Status_ById(id,status);
+    }
 }
