@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b91f3e0d-4cf7-4bd5-b83a-e8b1610fd95e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/domain/request/EmailApplicationStatusRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/controller/ApplicationWorkFlowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/controller/ApplicationWorkFlowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/dao/ApplicationWorkFlowDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/dao/ApplicationWorkFlowDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/dao/impl/ApplicationWorkFlowDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/dao/impl/ApplicationWorkFlowDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/service/ApplicationWorkFlowService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/teamagile/applicationservice/service/ApplicationWorkFlowService.java" afterDir="false" />
-    </list>
+    <list default="true" id="b91f3e0d-4cf7-4bd5-b83a-e8b1610fd95e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
