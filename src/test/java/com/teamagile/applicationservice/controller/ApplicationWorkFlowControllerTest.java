@@ -100,25 +100,9 @@ public class ApplicationWorkFlowControllerTest {
         assertNotNull(responseStatus.getMessage());
     }
 
-
-//    @Test
-//    public void test_UpdateApplicationWorkFlow_WhenApplicationWorkFlow_Success() throws Exception {
-//        when(applicationWorkFlowService.getApplicationWorkFlowById(1)).thenReturn(mockApplicationWorkFlow);
-//        when(applicationWorkFlowService.updateApplicationWorkFlowById(1,mockApplicationWorkFlow)).thenReturn(mockApplicationWorkFlow);
-//        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.patch("/applicationWorkFlow/update/{id}",1)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(new Gson().toJson(mockApplicationWorkFlow))
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//        SingleApplicationWorkFlowResponse singleApplicationWorkFlowResponse = new Gson().fromJson(result.getResponse().getContentAsString(), SingleApplicationWorkFlowResponse.class);
-//        assertEquals(singleApplicationWorkFlowResponse.getApplicationWorkFlow(),mockApplicationWorkFlow);
-//    }
     @Test
     public void test_UpdateApplicationWorkFlow_WhenApplicationWorkFlow_NotFound() throws Exception {
         when(applicationWorkFlowService.getApplicationWorkFlowById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
-
-
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.patch("/applicationWorkFlow/update/{id}",-1)
                         .contentType(MediaType.APPLICATION_JSON)

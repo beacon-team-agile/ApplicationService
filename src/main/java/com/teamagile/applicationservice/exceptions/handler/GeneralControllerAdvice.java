@@ -21,21 +21,5 @@ public class GeneralControllerAdvice {
     public ResponseEntity<ResponseStatus> handlerDataNotFound(RuntimeException e) {
         return new ResponseEntity(ResponseStatus.builder().is_success(false).message(e.getMessage()).build(), HttpStatus.OK);
     }
-//
-//    @ExceptionHandler(value = {TypeMismatchException.class, HttpMessageNotReadableException.class})
-//    public ResponseEntity<ResponseStatus> handlerNumberFormatException(Exception e) {
-//        return new ResponseEntity(ResponseStatus.builder()
-//                .is_success(false)
-//                .message("User Input Error. Please check on API documentation to make sure your request follow the desired pattern.")
-//                .build(), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-//    public ResponseEntity<ResponseStatus> handlerInvalidRequestBody(Exception e) {
-//        return new ResponseEntity(ResponseStatus.builder()
-//                .is_success(false)
-//                .message("")
-//                .build(),HttpStatus.BAD_REQUEST);
-//}
 }
 

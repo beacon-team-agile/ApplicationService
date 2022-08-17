@@ -3,6 +3,7 @@ package com.teamagile.applicationservice.controller;
 
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
 import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.AddApplicationWorkFlowResponse;
+import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.MultipleApplicationWorkFlowResponse;
 import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.SingleApplicationWorkFlowResponse;
 import com.teamagile.applicationservice.domain.response.common.ResponseStatus;
 import com.teamagile.applicationservice.service.ApplicationWorkFlowService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/applicationWorkFlow")
@@ -19,6 +21,20 @@ public class ApplicationWorkFlowController {
     @Autowired
     public void setApplicationWorkFlowService(ApplicationWorkFlowService applicationWorkFlowService) {
         this.applicationWorkFlowService = applicationWorkFlowService;
+    }
+
+    @GetMapping("/all")
+    public MultipleApplicationWorkFlowResponse getAllApplicationWorkFlow() {
+        List<ApplicationWorkFlow> applicationWorkFlowList = applicationWorkFlowService.getAllApplicationWorkFlow();
+        return MultipleApplicationWorkFlowResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Successfully got all the Application Work Flows")
+                                .build()
+                )
+                .applicationWorkFlowList(applicationWorkFlowList)
+                .build();
     }
 
     @PostMapping("/add")
@@ -48,17 +64,17 @@ public class ApplicationWorkFlowController {
     public SingleApplicationWorkFlowResponse getApplicationWorkFlowById(@PathVariable Integer id) {
         ApplicationWorkFlow applicationWorkFlow = applicationWorkFlowService.getApplicationWorkFlowById(id);
 
-        if (applicationWorkFlow==null) {
-            return SingleApplicationWorkFlowResponse.builder()
-                    .responseStatus(
-                            ResponseStatus.builder()
-                                    .is_success(false)
-                                    .message("Didn't find ApplicationWorkFlow")
-                                    .build()
-                    )
-                    .applicationWorkFlow(null)
-                    .build();
-        }
+//        if (applicationWorkFlow==null) {
+//            return SingleApplicationWorkFlowResponse.builder()
+//                    .responseStatus(
+//                            ResponseStatus.builder()
+//                                    .is_success(false)
+//                                    .message("Didn't find ApplicationWorkFlow")
+//                                    .build()
+//                    )
+//                    .applicationWorkFlow(null)
+//                    .build();
+//        }
 
         return SingleApplicationWorkFlowResponse.builder()
                 .responseStatus(
