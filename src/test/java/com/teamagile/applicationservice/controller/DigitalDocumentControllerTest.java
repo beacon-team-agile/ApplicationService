@@ -1,12 +1,14 @@
 package com.teamagile.applicationservice.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
+import com.teamagile.applicationservice.domain.entity.DigitalDocument;
 import com.teamagile.applicationservice.domain.response.ApplicationWorkFlowResponse.SingleApplicationWorkFlowResponse;
+import com.teamagile.applicationservice.domain.response.DigitalDocumentResponse.SingleDigitalDocumentResponse;
 import com.teamagile.applicationservice.domain.response.common.ResponseStatus;
 import com.teamagile.applicationservice.exceptions.DataNotFoundException;
 import com.teamagile.applicationservice.service.ApplicationWorkFlowService;
+import com.teamagile.applicationservice.service.DigitalDocumentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,24 +19,20 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.lang.reflect.Field;
-import java.util.Optional;
-
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ApplicationWorkFlowController.class)
+@WebMvcTest(DigitalDocumentController.class)
 @ExtendWith(MockitoExtension.class)
 @WithMockUser
-public class ApplicationWorkFlowControllerTest {
-
+public class DigitalDocumentControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -42,43 +40,43 @@ public class ApplicationWorkFlowControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @MockBean
-    ApplicationWorkFlowService applicationWorkFlowService;
+    DigitalDocumentService digitalDocumentService;
 
-    ApplicationWorkFlow mockApplicationWorkFlow;
+    DigitalDocument mockDigitalDocument;
 
     @BeforeEach
     public void init() throws IllegalAccessException {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        mockApplicationWorkFlow = ApplicationWorkFlow.builder()
+        mockDigitalDocument = DigitalDocument.builder()
                 .id(1)
-                .employee_id("62fa71b93f8180055bd111a5")
-                .create_date("2022-08-14")
-                .last_modification_date("2022-08-15")
-                .status(true)
-                .comment("comment")
+                .type("type_test")
+                .path("path_test")
+                .is_required(false)
+                .description("description_test")
+                .title("title_test")
                 .build();
     }
 
     @Test
-    public void test_GetApplicationWorkFlow_success() throws Exception {
+    public void test_GetDigitalDocument_success() throws Exception {
 
-        when(applicationWorkFlowService.getApplicationWorkFlowById(1)).thenReturn(mockApplicationWorkFlow);
+        when(digitalDocumentService.getDigitalDocumentById(1)).thenReturn(mockDigitalDocument);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/applicationWorkFlow/{id}",1)
-                .accept(MediaType.APPLICATION_JSON))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/digitalDocument/{id}",1)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
-        SingleApplicationWorkFlowResponse singleApplicationWorkFlowResponse = new Gson().fromJson(result.getResponse().getContentAsString(), SingleApplicationWorkFlowResponse.class);
-        ApplicationWorkFlow applicationWorkFlow = singleApplicationWorkFlowResponse.getApplicationWorkFlow();
-        assertEquals(mockApplicationWorkFlow.toString(),applicationWorkFlow.toString());
+        SingleDigitalDocumentResponse singleApplicationWorkFlowResponse = new Gson().fromJson(result.getResponse().getContentAsString(), SingleDigitalDocumentResponse.class);
+        DigitalDocument digitalDocument = singleApplicationWorkFlowResponse.getDigitalDocument();
+        assertEquals(mockDigitalDocument.toString(),digitalDocument.toString());
     }
 
     @Test
-    public void test_GetApplicationWorkFlow_WhenApplicationWorkFlow_NotFound() throws Exception {
-        when(applicationWorkFlowService.getApplicationWorkFlowById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
+    public void test_GetDigitalDocument_WhenDigitalDocument_NotFound() throws Exception {
+        when(digitalDocumentService.getDigitalDocumentById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/applicationWorkFlow/{id}",-1)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/digitalDocument/{id}",-1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -88,10 +86,10 @@ public class ApplicationWorkFlowControllerTest {
     }
 
     @Test
-    public void test_DeleteApplicationWorkFlow_WhenApplicationWorkFlow_NotFound() throws Exception {
-        when(applicationWorkFlowService.getApplicationWorkFlowById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
+    public void test_DeleteDigitalDocument_WhenDigitalDocument_NotFound() throws Exception {
+        when(digitalDocumentService.getDigitalDocumentById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/applicationWorkFlow/delete/{id}",-1)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/digitalDocument/delete/{id}",-1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -102,11 +100,11 @@ public class ApplicationWorkFlowControllerTest {
 
     @Test
     public void test_UpdateApplicationWorkFlow_WhenApplicationWorkFlow_NotFound() throws Exception {
-        when(applicationWorkFlowService.getApplicationWorkFlowById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
+        when(digitalDocumentService.getDigitalDocumentById(-1)).thenThrow(new DataNotFoundException("Application Work Flow Not Found"));
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.patch("/applicationWorkFlow/update/{id}",-1)
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.patch("/digitalDocument/update/{id}",-1)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new Gson().toJson(mockApplicationWorkFlow))
+                        .content(new Gson().toJson(mockDigitalDocument))
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();

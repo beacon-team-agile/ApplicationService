@@ -48,4 +48,29 @@ public class ApplicationWorkFlowServiceTest {
         when(applicationWorkFlowDao.getApplicationWorkFlowById(-1)).thenReturn(null);
         assertThrows(DataNotFoundException.class, () -> applicationWorkFlowService.getApplicationWorkFlowById(-1));
     }
+
+    @Test
+    public void test_DeleteApplicationWorkFlowById_NotFound() {
+        assertThrows(DataNotFoundException.class, () -> applicationWorkFlowService.deleteApplicationWorkFlowById(-1));
+    }
+
+    @Test
+    public void test_updateApplicationWorkFlowById_success() {
+        ApplicationWorkFlow newApplicationWorkFlow = ApplicationWorkFlow
+                .builder()
+                .id(mockApplicationWorkFlow.getId())
+                .employee_id("62f9717fafd8a52a954a05fa")
+                .create_date("2022-08-14")
+                .last_modification_date("2022-08-16")
+                .status(false)
+                .comment("updated")
+                .build();
+        when(applicationWorkFlowDao.updateApplicationWorkFlowById(1,newApplicationWorkFlow)).thenReturn(newApplicationWorkFlow);
+        assertEquals(newApplicationWorkFlow,applicationWorkFlowDao.updateApplicationWorkFlowById(1,newApplicationWorkFlow));
+    }
+
+    @Test
+    public void test_updateApplicationWorkFlowById_NotFound() {
+        assertThrows(DataNotFoundException.class, () -> applicationWorkFlowService.updateApplicationWorkFlowById(-1,mockApplicationWorkFlow));
+    }
 }

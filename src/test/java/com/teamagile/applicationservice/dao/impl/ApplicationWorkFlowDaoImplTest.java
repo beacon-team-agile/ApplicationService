@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles(value = "test")
 @SpringBootTest
+@Transactional
 public class ApplicationWorkFlowDaoImplTest {
     @Autowired
     ApplicationWorkFlowDaoImpl applicationWorkFlowDao;
@@ -32,18 +33,50 @@ public class ApplicationWorkFlowDaoImplTest {
                 .build();
     }
 
-    @Transactional
     @Test
-    public void testGetApplicationWorkFlowById_found() {
+    public void test_GetApplicationWorkFlowById_found() {
         Integer id = applicationWorkFlowDao.addApplicationWorkFlow(mockApplicationWorkFlow);
         assertNotNull(id);
         assertEquals(mockApplicationWorkFlow,applicationWorkFlowDao.getApplicationWorkFlowById(id));
         mockApplicationWorkFlow.setId(null);
     }
 
-    @Transactional
     @Test
-    public void testGetApplicationWorkFlowById_notFound() {
+    public void test_GetApplicationWorkFlowById_notFound() {
         assertNull(applicationWorkFlowDao.getApplicationWorkFlowById(-1));
     }
+
+    @Test
+    public void test_UpdateApplicationWorkFlowById_success() {
+        Integer id = applicationWorkFlowDao.addApplicationWorkFlow(mockApplicationWorkFlow);
+        assertNotNull(id);
+        assertEquals(mockApplicationWorkFlow,applicationWorkFlowDao.getApplicationWorkFlowById(id));
+        ApplicationWorkFlow newApplicationWorkFlow = ApplicationWorkFlow
+                .builder()
+                .id(mockApplicationWorkFlow.getId())
+                .employee_id("62f9717fafd8a52a954a05fa")
+                .create_date("2022-08-14")
+                .last_modification_date("2022-08-16")
+                .status(false)
+                .comment("updated")
+                .build();
+        mockApplicationWorkFlow = applicationWorkFlowDao.updateApplicationWorkFlowById(id,newApplicationWorkFlow);
+        assertEquals(mockApplicationWorkFlow,applicationWorkFlowDao.getApplicationWorkFlowById(id));
+        mockApplicationWorkFlow.setId(null);
+    }
+
+    @Test
+    public void test_UpdateApplicationWorkFlowById_NotFound() {
+        assertNull(applicationWorkFlowDao.updateApplicationWorkFlowById(-1,mockApplicationWorkFlow));
+    }
+
+    @Test
+    public void test_DeleteApplicationWorkFlowById_success() {
+        Integer id = applicationWorkFlowDao.addApplicationWorkFlow(mockApplicationWorkFlow);
+        assertNotNull(id);
+        assertEquals(mockApplicationWorkFlow,applicationWorkFlowDao.getApplicationWorkFlowById(id));
+        applicationWorkFlowDao.deleteApplicationWorkFlowById(id);
+        assertNull(applicationWorkFlowDao.getApplicationWorkFlowById(id));
+    }
+
 }

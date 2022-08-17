@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,10 @@ public class ApplicationWorkFlowService {
         this.applicationWorkFlowDao = applicationWorkFlowDao;
     }
 
+    public List<ApplicationWorkFlow> getAllApplicationWorkFlow() {
+        return applicationWorkFlowDao.getAllApplicationWorkFlow();
+    }
+
     public Integer addApplicationWorkFlow(ApplicationWorkFlow applicationWorkFlow) {
         return applicationWorkFlowDao.addApplicationWorkFlow(applicationWorkFlow);
     }
@@ -29,10 +34,12 @@ public class ApplicationWorkFlowService {
     }
 
     public void deleteApplicationWorkFlowById(int id) {
+        this.getApplicationWorkFlowById(id);
         applicationWorkFlowDao.deleteApplicationWorkFlowById(id);
     }
 
     public ApplicationWorkFlow updateApplicationWorkFlowById(int id, ApplicationWorkFlow applicationWorkFlow) {
+        this.getApplicationWorkFlowById(id);
         return applicationWorkFlowDao.updateApplicationWorkFlowById(id,applicationWorkFlow);
     }
 }

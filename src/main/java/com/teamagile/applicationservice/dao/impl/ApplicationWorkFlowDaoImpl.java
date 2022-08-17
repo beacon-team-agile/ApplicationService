@@ -6,6 +6,7 @@ import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,14 +22,24 @@ public class ApplicationWorkFlowDaoImpl extends AbstractHibernateDAO<Application
     }
 
     @Override
+    public List<ApplicationWorkFlow> getAllApplicationWorkFlow() {
+        return getAll();
+    }
+
+    @Override
     public ApplicationWorkFlow getApplicationWorkFlowById(Integer id) {
         return findById(id);
     }
+
 
     @Override
     public ApplicationWorkFlow updateApplicationWorkFlowById(Integer id, ApplicationWorkFlow applicationWorkFlow) {
         Session session = getCurrentSession();
         ApplicationWorkFlow old_applicationWorkFlow = findById(id);
+
+        if (old_applicationWorkFlow==null) {
+            return null;
+        }
 
         old_applicationWorkFlow.setEmployee_id(applicationWorkFlow.getEmployee_id());
         old_applicationWorkFlow.setCreate_date(applicationWorkFlow.getCreate_date());
