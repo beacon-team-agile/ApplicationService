@@ -12,5 +12,9 @@ public interface ApplicationWorkFlowDao {
 
     ApplicationWorkFlow updateApplicationWorkFlowById(Integer id,ApplicationWorkFlow applicationWorkFlow);
 
+    ApplicationWorkFlow update_ApplicationWorkFlow_lastModificationTime_ById(Integer id);
+
+    ApplicationWorkFlow update_ApplicationWorkFlow_Status_ById(Integer id, boolean status);
+
     void deleteApplicationWorkFlowById(Integer id);
 }
