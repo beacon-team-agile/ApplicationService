@@ -87,6 +87,22 @@ public class ApplicationWorkFlowDaoImpl extends AbstractHibernateDAO<Application
         return old_applicationWorkFlow;
     }
 
+    @Override
+    public ApplicationWorkFlow update_ApplicationWorkFlow_comment_ById(Integer id, String comment) {
+        Session session = getCurrentSession();
+        ApplicationWorkFlow old_applicationWorkFlow = findById(id);
+
+        if (old_applicationWorkFlow==null) {
+            return null;
+        }
+
+        old_applicationWorkFlow.setComment(comment);
+
+        session.update(old_applicationWorkFlow);
+
+        return old_applicationWorkFlow;
+    }
+
 
     @Override
     public void deleteApplicationWorkFlowById(Integer id) {
