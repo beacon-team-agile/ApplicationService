@@ -47,6 +47,10 @@ public class ApplicationWorkFlowService {
         this.getApplicationWorkFlowById(id);
         return applicationWorkFlowDao.update_ApplicationWorkFlow_lastModificationTime_ById(id);
     }
+    public ApplicationWorkFlow update_ApplicationWorkFlow_comment_ById(Integer id, String comment){
+        this.getApplicationWorkFlowById(id);
+        return applicationWorkFlowDao.update_ApplicationWorkFlow_comment_ById(id, comment);
+    }
 
     public ApplicationWorkFlow update_ApplicationWorkFlow_Status_ById(Integer id, boolean status){
         this.getApplicationWorkFlowById(id);

@@ -144,6 +144,7 @@ public class ApplicationWorkFlowController {
         ResponseEntity<String> response = restTemplate.exchange(requestEntity, String.class);
 
         applicationWorkFlowService.update_ApplicationWorkFlow_Status_ById(id, emailApplicationStatusRequest.getApproved());
+        applicationWorkFlowService.update_ApplicationWorkFlow_comment_ById(id,emailApplicationStatusRequest.getComment());
         ApplicationWorkFlow applicationWorkFlow = applicationWorkFlowService.update_ApplicationWorkFlow_lastModificationTime_ById(id);
 
         return SingleApplicationWorkFlowResponse.builder()
