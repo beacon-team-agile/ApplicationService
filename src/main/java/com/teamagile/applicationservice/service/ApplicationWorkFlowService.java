@@ -56,4 +56,9 @@ public class ApplicationWorkFlowService {
         this.getApplicationWorkFlowById(id);
         return applicationWorkFlowDao.update_ApplicationWorkFlow_Status_ById(id,status);
     }
+
+    public List<ApplicationWorkFlow> getAllInactiveApplicationWorkFlow() {
+        return applicationWorkFlowDao.getAllInactiveApplicationWorkFlow();
+
+    }
 }

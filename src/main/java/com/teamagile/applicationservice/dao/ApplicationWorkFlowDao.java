@@ -17,5 +17,7 @@ public interface ApplicationWorkFlowDao {
     ApplicationWorkFlow update_ApplicationWorkFlow_Status_ById(Integer id, boolean status);
 
     ApplicationWorkFlow update_ApplicationWorkFlow_comment_ById(Integer id, String comment);
+
+    List<ApplicationWorkFlow> getAllInactiveApplicationWorkFlow();
     void deleteApplicationWorkFlowById(Integer id);
 }
