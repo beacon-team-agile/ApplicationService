@@ -159,4 +159,18 @@ public class ApplicationWorkFlowController {
 
     }
 
+    @GetMapping("/all_inactive_application")
+    public MultipleApplicationWorkFlowResponse getAllInactiveApplicationWorkFlow() {
+        List<ApplicationWorkFlow> applicationWorkFlowList = applicationWorkFlowService.getAllInactiveApplicationWorkFlow();
+        return MultipleApplicationWorkFlowResponse.builder()
+                .responseStatus(
+                        ResponseStatus.builder()
+                                .is_success(true)
+                                .message("Successfully got all the Inactive Application Work Flows")
+                                .build()
+                )
+                .applicationWorkFlowList(applicationWorkFlowList)
+                .build();
+    }
+
 }

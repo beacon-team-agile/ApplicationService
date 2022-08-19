@@ -3,6 +3,7 @@ package com.teamagile.applicationservice.dao.impl;
 import com.teamagile.applicationservice.dao.AbstractHibernateDAO;
 import com.teamagile.applicationservice.dao.ApplicationWorkFlowDao;
 import com.teamagile.applicationservice.domain.entity.ApplicationWorkFlow;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -101,6 +102,15 @@ public class ApplicationWorkFlowDaoImpl extends AbstractHibernateDAO<Application
         session.update(old_applicationWorkFlow);
 
         return old_applicationWorkFlow;
+    }
+
+    @Override
+    public List<ApplicationWorkFlow> getAllInactiveApplicationWorkFlow() {
+        Session session = getCurrentSession();
+        Query query = session.createQuery("from ApplicationWorkFlow where status = false");
+        List<ApplicationWorkFlow> applicationWorkFlowList = query.getResultList();
+
+        return applicationWorkFlowList;
     }
 
 
